@@ -1,142 +1,73 @@
 package com.ugb.calcul;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RadioGroup radioGroupOperaciones1;
-    private RadioGroup radioGroupOperaciones2;
-    private Button calcularButton;
-    private TextView lblRespuesta;
-    private TextView txtDato1, txtDato2;
-
+    Button btn;
+    FloatingActionButton fab;
+    TextView tempVal;
+    String accion = "nuevo";
+    String id="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        radioGroupOperaciones1 = findViewById(R.id.radioGroupOperaciones1);
-        radioGroupOperaciones2 = findViewById(R.id.radioGroupOperaciones2);
-        calcularButton = findViewById(R.id.button);
-        lblRespuesta = findViewById(R.id.lblrespuesta);
-        txtDato1 = findViewById(R.id.txtdato1);
-        txtDato2 = findViewById(R.id.txtdato2);
-
-        calcularButton.setOnClickListener(new View.OnClickListener() {
+        fab = findViewById(R.id.fabListarAmigos);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Obtener los datos ingresados
-                double dato1 = Double.parseDouble(txtDato1.getText().toString());
+            public void onClick(View view) {
+                abrirActividad();
+            }
+        });
+        btn = findViewById(R.id.btnGuardarAgendaAmigos);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    tempVal = findViewById(R.id.txtnombre);
+                    String nombre = tempVal.getText().toString();
 
-                // Validar si txtDato2 está vacío
-                String txtDato2Value = txtDato2.getText().toString();
-                double dato2 = 0; // Valor por defecto si txtDato2 está vacío
+                    tempVal = findViewById(R.id.txtdireccion);
+                    String direccion = tempVal.getText().toString();
 
-                if (!txtDato2Value.isEmpty()) {
-                    dato2 = Double.parseDouble(txtDato2Value);
-                }
+                    tempVal = findViewById(R.id.txtTelefono);
+                    String tel = tempVal.getText().toString();
 
-                // Realizar la operación deseada y mostrar el resultado en lblRespuesta
-                String respuesta = "";
+                    tempVal = findViewById(R.id.txtemail);
+                    String email = tempVal.getText().toString();
 
-                if (radioGroupOperaciones1.getCheckedRadioButtonId() != -1) {
-                    RadioButton selectedRadio1 = findViewById(radioGroupOperaciones1.getCheckedRadioButtonId());
-                    String operacion1 = selectedRadio1.getText().toString();
+                    tempVal = findViewById(R.id.txtdui);
+                    String dui = tempVal.getText().toString();
 
-                    switch (operacion1) {
-                        case "Suma":
-                            respuesta = String.valueOf(dato1 + dato2);
-                            break;
-                        case "Resta":
-                            respuesta = String.valueOf(dato1 - dato2);
-                            break;
-                        case "Multiplicación":
-                            respuesta = String.valueOf(dato1 * dato2);
-                            break;
-                        case "División":
-                            if (dato2 != 0) {
-                                respuesta = String.valueOf(dato1 / dato2);
-                            } else {
-                                respuesta = "Error: División por cero";
-                            }
-                            break;
+                    DB db = new DB(getApplicationContext(), "",null, 1);
+                    String[] datos = new String[]{id,nombre,direccion,tel,email,dui};
+                    String respuesta = db.administrar_amigos(accion, datos);
+                    if(respuesta.equals("ok")){
+                        Toast.makeText(getApplicationContext(), "Amigo guardado con exito", Toast.LENGTH_LONG).show();
+                        abrirActividad();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Error al intentar guardar el amigo: "+ respuesta, Toast.LENGTH_LONG).show();
                     }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Error: "+ e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
-                if (radioGroupOperaciones2.getCheckedRadioButtonId() != -1) {
-                    RadioButton selectedRadio2 = findViewById(radioGroupOperaciones2.getCheckedRadioButtonId());
-                    String operacion2 = selectedRadio2.getText().toString();
-
-                    switch (operacion2) {
-                        case "Porcentaje":
-                            respuesta = String.valueOf((dato1 / 100) * dato2);
-                            break;
-                        case "Exponenciación":
-                            respuesta = String.valueOf(Math.pow(dato1, dato2));
-                            break;
-                        case "Factorial":
-                            if (dato1 >= 0 && dato1 == (int) dato1) {
-                                respuesta = String.valueOf(factorial((int) dato1));
-                            } else {
-                                respuesta = "Error: Factorial solo acepta números enteros no negativos";
-                            }
-                            break;
-                        case "Raíz":
-                            // Agregar lógica para manejar diferentes tipos de raíces y exponentes
-                            respuesta = calcularRaiz(dato1, dato2);
-                            break;
-                    }
-                }
-
-                // Mostrar la respuesta en lblRespuesta
-                lblRespuesta.setText(respuesta);
-                lblRespuesta.setVisibility(View.VISIBLE);
-
-                // Reiniciar los RadioGroups
-                radioGroupOperaciones1.clearCheck();
-                radioGroupOperaciones2.clearCheck();
             }
         });
     }
-
-    // Método para calcular el factorial de un número entero
-    private long factorial(int n) {
-        if (n == 0 || n == 1) {
-            return 1;
-        } else {
-            return n * factorial(n - 1);
-        }
-    }
-
-    // Método para calcular la raíz con diferentes tipos y exponentes
-    private String calcularRaiz(double base, double exponente) {
-        // Validar si el exponente es un número entero positivo
-        if (exponente >= 0 && exponente == (int) exponente) {
-            double resultado;
-
-            // Calcular la raíz cuadrada
-            if (exponente == 2) {
-                resultado = Math.sqrt(base);
-            }
-            // Calcular la raíz cúbica
-            else if (exponente == 3) {
-                resultado = Math.cbrt(base);
-            }
-            // Calcular raíz con otro exponente
-            else {
-                resultado = Math.pow(base, 1 / exponente);
-            }
-
-            return String.valueOf(resultado);
-        } else {
-            return "Error: El exponente debe ser un número entero no negativo";
-        }
+    private void abrirActividad(){
+        Intent abrirActividad = new Intent(getApplicationContext(), lista_amigos.class);
+        startActivity(abrirActividad);
     }
 }

@@ -1,180 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
-
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/lblcalculadora"
+        android:id="@+id/lblnombre"
+        android:text="nombre"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="18dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CALCULADORA"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
-
-    <EditText
-        android:id="@+id/txtdato2"
-        android:layout_width="358dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:hint="Ingrese dato"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbldato2"
-        app:layout_constraintVertical_bias="0.001" />
-
-    <EditText
-        android:id="@+id/txtdato1"
-        android:layout_width="358dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="8dp"
-        android:hint="Ingrese dato"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.509"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbldato1"
-        app:layout_constraintVertical_bias="0.0" />
-
+        android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/lbldato1"
+        android:id="@+id/lbltelefono"
+        android:text="telefono"
+        android:textColor="@color/black"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="DATO 1"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblcalculadora"
-        app:layout_constraintVertical_bias="0.0" />
-
+        android:layout_height="wrap_content"/>
     <TextView
-        android:id="@+id/lbldato2"
+        android:id="@+id/lblemail"
+        android:text="email"
+        android:textColor="@color/black"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="150dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="DATO 2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtdato1"
-        app:layout_constraintVertical_bias="0.02" />
-
-
-    <RadioGroup
-        android:id="@+id/radioGroupOperaciones1"
-        android:layout_width="151dp"
-        android:layout_height="246dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.103"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863">
-
-        <RadioButton
-            android:id="@+id/rbtnsuma"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Suma" />
-
-        <RadioButton
-            android:id="@+id/rbtnresta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Resta" />
-
-        <RadioButton
-            android:id="@+id/rbtnmultiplicacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Multiplicación" />
-
-        <RadioButton
-            android:id="@+id/rbtndivision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="División" />
-
-    </RadioGroup>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="225dp"
-        android:layout_height="74dp"
-        android:text="Calcular"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.392" />
-
-    <TextView
-        android:id="@+id/lblrespuesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Respuesta"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.547"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946"/>
-
-    <RadioGroup
-        android:id="@+id/radioGroupOperaciones2"
-        android:layout_width="169dp"
-        android:layout_height="248dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.863">
-
-        <RadioButton
-            android:id="@+id/rbtnporcentaje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Porcentaje" />
-
-        <RadioButton
-            android:id="@+id/rbtnexpo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Exponenciación" />
-
-        <RadioButton
-            android:id="@+id/rbtnfactorizacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Factorial" />
-
-        <RadioButton
-            android:id="@+id/rbtnraiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Raíz" />
-
-    </RadioGroup>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"/>
+</RelativeLayout>
