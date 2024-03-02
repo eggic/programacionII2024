@@ -1,142 +1,110 @@
 package com.ugb.calcul;
 
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RadioGroup radioGroupOperaciones1;
-    private RadioGroup radioGroupOperaciones2;
-    private Button calcularButton;
-    private TextView lblRespuesta;
-    private TextView txtDato1, txtDato2;
+    TabHost tbh;
+    Spinner spn;
+    TextView tempVal;
+    Button btnCalc, btnConvert;
+    Conversores miObj = new Conversores();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        radioGroupOperaciones1 = findViewById(R.id.radioGroupOperaciones1);
-        radioGroupOperaciones2 = findViewById(R.id.radioGroupOperaciones2);
-        calcularButton = findViewById(R.id.button);
-        lblRespuesta = findViewById(R.id.lblrespuesta);
-        txtDato1 = findViewById(R.id.txtdato1);
-        txtDato2 = findViewById(R.id.txtdato2);
+        tbh = findViewById(R.id.tbhParcial);
+        tbh.setup();
 
-        calcularButton.setOnClickListener(new View.OnClickListener() {
+        // Pestaña "Calculadora"
+        tbh.addTab(tbh.newTabSpec("CALC").setContent(R.id.tabcalc).setIndicator("Calculadora", null));
+
+        // Pestaña "Área"
+        tbh.addTab(tbh.newTabSpec("AREA").setContent(R.id.tab_Area).setIndicator("Área", null));
+
+        // Botón para la pestaña "Calculadora"
+        btnCalc = findViewById(R.id.btncalc);
+        btnCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Obtener los datos ingresados
-                double dato1 = Double.parseDouble(txtDato1.getText().toString());
+                // Lógica para el botón de la pestaña "Calculadora"
+                calcularTarifaAgua();
+            }
+        });
 
-                // Validar si txtDato2 está vacío
-                String txtDato2Value = txtDato2.getText().toString();
-                double dato2 = 0; // Valor por defecto si txtDato2 está vacío
-
-                if (!txtDato2Value.isEmpty()) {
-                    dato2 = Double.parseDouble(txtDato2Value);
-                }
-
-                // Realizar la operación deseada y mostrar el resultado en lblRespuesta
-                String respuesta = "";
-
-                if (radioGroupOperaciones1.getCheckedRadioButtonId() != -1) {
-                    RadioButton selectedRadio1 = findViewById(radioGroupOperaciones1.getCheckedRadioButtonId());
-                    String operacion1 = selectedRadio1.getText().toString();
-
-                    switch (operacion1) {
-                        case "Suma":
-                            respuesta = String.valueOf(dato1 + dato2);
-                            break;
-                        case "Resta":
-                            respuesta = String.valueOf(dato1 - dato2);
-                            break;
-                        case "Multiplicación":
-                            respuesta = String.valueOf(dato1 * dato2);
-                            break;
-                        case "División":
-                            if (dato2 != 0) {
-                                respuesta = String.valueOf(dato1 / dato2);
-                            } else {
-                                respuesta = "Error: División por cero";
-                            }
-                            break;
-                    }
-                }
-
-                if (radioGroupOperaciones2.getCheckedRadioButtonId() != -1) {
-                    RadioButton selectedRadio2 = findViewById(radioGroupOperaciones2.getCheckedRadioButtonId());
-                    String operacion2 = selectedRadio2.getText().toString();
-
-                    switch (operacion2) {
-                        case "Porcentaje":
-                            respuesta = String.valueOf((dato1 / 100) * dato2);
-                            break;
-                        case "Exponenciación":
-                            respuesta = String.valueOf(Math.pow(dato1, dato2));
-                            break;
-                        case "Factorial":
-                            if (dato1 >= 0 && dato1 == (int) dato1) {
-                                respuesta = String.valueOf(factorial((int) dato1));
-                            } else {
-                                respuesta = "Error: Factorial solo acepta números enteros no negativos";
-                            }
-                            break;
-                        case "Raíz":
-                            // Agregar lógica para manejar diferentes tipos de raíces y exponentes
-                            respuesta = calcularRaiz(dato1, dato2);
-                            break;
-                    }
-                }
-
-                // Mostrar la respuesta en lblRespuesta
-                lblRespuesta.setText(respuesta);
-                lblRespuesta.setVisibility(View.VISIBLE);
-
-                // Reiniciar los RadioGroups
-                radioGroupOperaciones1.clearCheck();
-                radioGroupOperaciones2.clearCheck();
+        // Botón para la pestaña "Área"
+        btnConvert = findViewById(R.id.btnConvertirArea);
+        btnConvert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Lógica para el botón de la pestaña "Área"
+                spn = findViewById(R.id.spnArea);
+                int de = spn.getSelectedItemPosition();
+                spn = findViewById(R.id.spnDArea);
+                int a = spn.getSelectedItemPosition();
+                tempVal = findViewById(R.id.txtCantidadArea);
+                double cantidad = Double.parseDouble(tempVal.getText().toString());
+                double respuesta = miObj.convertir(0, de, a, cantidad);
+                Toast.makeText(getApplicationContext(), "Respuesta Área: " + respuesta, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // Método para calcular el factorial de un número entero
-    private long factorial(int n) {
-        if (n == 0 || n == 1) {
-            return 1;
-        } else {
-            return n * factorial(n - 1);
+    private class Conversores {
+        double[][] valores = {
+                {1, 10.763, 1.43, 1.19599, 0.001590, 0.0001434, 0.0001}
+        };
+
+        public double convertir(int opcion, int de, int a, double cantidad) {
+            return valores[opcion][a] / valores[opcion][de] * cantidad;
         }
     }
 
-    // Método para calcular la raíz con diferentes tipos y exponentes
-    private String calcularRaiz(double base, double exponente) {
-        // Validar si el exponente es un número entero positivo
-        if (exponente >= 0 && exponente == (int) exponente) {
-            double resultado;
+    // Función para calcular la tarifa de agua
+    private void calcularTarifaAgua() {
+        EditText txtAgua = findViewById(R.id.txtAgua);
+        TextView lblResp = findViewById(R.id.lblresp);
 
-            // Calcular la raíz cuadrada
-            if (exponente == 2) {
-                resultado = Math.sqrt(base);
-            }
-            // Calcular la raíz cúbica
-            else if (exponente == 3) {
-                resultado = Math.cbrt(base);
-            }
-            // Calcular raíz con otro exponente
-            else {
-                resultado = Math.pow(base, 1 / exponente);
-            }
+        try {
+            int metrosConsumidos = Integer.parseInt(txtAgua.getText().toString());
+            double tarifaTotal = calcularTarifa(metrosConsumidos);
+            lblResp.setText("R// La tarifa total a pagar es: $" + tarifaTotal);
+        } catch (NumberFormatException e) {
+            Toast.makeText(getApplicationContext(), "Ingrese una cantidad válida de metros", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-            return String.valueOf(resultado);
+    // Función para calcular la tarifa de agua
+    private double calcularTarifa(int metrosConsumidos) {
+        double cuotaFija = 6.0;
+
+        if (metrosConsumidos >= 1 && metrosConsumidos <= 18) {
+            return cuotaFija;
+        } else if (metrosConsumidos >= 19 && metrosConsumidos <= 28) {
+            double exceso = metrosConsumidos - 18;
+            double tarifaExceso = 0.45 * exceso;
+            return cuotaFija + tarifaExceso;
+        } else if (metrosConsumidos >= 29) {
+            double exceso1 = 28 - 18;
+            double tarifaExceso1 = 0.45 * exceso1;
+
+            double exceso2 = metrosConsumidos - 28;
+            double tarifaExceso2 = 0.65 * exceso2;
+
+            return cuotaFija + tarifaExceso1 + tarifaExceso2;
         } else {
-            return "Error: El exponente debe ser un número entero no negativo";
+            Toast.makeText(getApplicationContext(), "Cantidad de metros no válida", Toast.LENGTH_SHORT).show();
+            return 0.0;
         }
     }
 }
