@@ -10,12 +10,12 @@
               <deviceKey>
                 <Key>
                   <type value="VIRTUAL_DEVICE_PATH" />
-                  <value value="C:\Users\Tania\.android\avd\ophon_API_27.avd" />
+                  <value value="C:\Users\Tania\.android\avd\motorola_sin_telefono_API_33.avd" />
                 </Key>
               </deviceKey>
             </Target>
           </targetSelectedWithDropDown>
-          <timeTargetWasSelectedWithDropDown value="2024-02-19T21:59:45.570097800Z" />
+          <timeTargetWasSelectedWithDropDown value="2024-03-04T23:53:38.623764700Z" />
         </State>
       </entry>
     </value>
