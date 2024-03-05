@@ -1,12 +1,5 @@
 <resources>
-    <string name="app_name">conversor</string>
-    <string-array name="spnARea">
-        <item>Metro2</item>
-        <item>Pie2</item>
-        <item>Vara2</item>
-        <item>Yarda2</item>
-        <item>Tareas</item>
-        <item>Manzana</item>
-        <item>Hectarea</item>
-    </string-array>
+    <string name="app_name">Agregar Amigos</string>
+    <string name="agregar_amigo">Agregar un Amigo</string>
+
 </resources>
