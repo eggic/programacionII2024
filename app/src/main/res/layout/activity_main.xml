@@ -1,86 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary" />
-
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme">
     <EditText
         android:id="@+id/txtnombre"
         android:inputType="textPersonName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="20dp"
         android:hint="Nombre"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/txtTelefono"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtdireccion"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Teléfono"
-        android:inputType="phone"
-        android:textSize="18sp" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtdui"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="GUARDAR AMIGO"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/txtdui"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtmail"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="DUI"
-        android:inputType="number|text"
-        android:textSize="18sp" />
-
+        android:layout_height="wrap_content"/>
     <EditText
         android:id="@+id/txtdireccion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:hint="Direccion"
+        android:inputType="textMultiLine"
         android:layout_below="@id/txtnombre"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtTelefono"
+        android:hint="Telefono"
+        android:inputType="phone"
+        android:layout_below="@id/txtdireccion"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtemail"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_below="@id/txtTelefono"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/txtdui"
+        android:inputType="number"
+        android:hint="DUI"
+        android:layout_below="@id/txtemail"
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/btnGuardarAgendaAmigos"
+        android:layout_below="@id/txtdui"
+        android:layout_marginTop="40dp"
+        android:text="GUARDAR AMIGO"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabListarAmigos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:hint="Dirección"
-        android:inputType="textMultiLine"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/txtmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtTelefono"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:textSize="18sp" />
-
-
+        android:layout_marginBottom="20dp"
+        android:src="@android:drawable/ic_menu_revert" />
 </RelativeLayout>

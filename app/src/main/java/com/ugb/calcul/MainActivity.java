@@ -1,50 +1,71 @@
 package com.ugb.calcul;
-
-import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
-
-    EditText txtnombre, txtdireccion, txtTelefono, txtmail, txtdui;
-    Button btnSubmit;
-
+    Button btn;
+    FloatingActionButton fab;
+    TextView tempVal;
+    String accion = "nuevo";
+    String id="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Configurar el modo claro/oscuro basado en la configuración del sistema
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Configurar la barra de herramientas
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        fab = findViewById(R.id.fabListarAmigos);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                abrirActividad();
+            }
+        });
+        btn = findViewById(R.id.btnGuardarAgendaAmigos);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    tempVal = findViewById(R.id.txtnombre);
+                    String nombre = tempVal.getText().toString();
 
-        // Enlazar los EditText y el Button con sus respectivos IDs
-        txtnombre = findViewById(R.id.txtnombre);
-        txtdireccion = findViewById(R.id.txtdireccion);
-        txtTelefono = findViewById(R.id.txtTelefono);
-        txtmail = findViewById(R.id.txtmail);
-        txtdui = findViewById(R.id.txtdui);
-        btnSubmit = findViewById(R.id.btnSubmit);
+                    tempVal = findViewById(R.id.txtdireccion);
+                    String direccion = tempVal.getText().toString();
 
-        // Cambiar el color del texto en txtnombre en función del modo claro/oscuro
-        int textColor = ContextCompat.getColor(
-                this,
-                AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES
-                        ? android.R.color.white
-                        : android.R.color.black
-        );
+                    tempVal = findViewById(R.id.txtTelefono);
+                    String tel = tempVal.getText().toString();
 
-        txtnombre.setTextColor(textColor);
+                    tempVal = findViewById(R.id.txtemail);
+                    String email = tempVal.getText().toString();
 
-        // Resto de tu código...
+                    tempVal = findViewById(R.id.txtdui);
+                    String dui = tempVal.getText().toString();
+
+                    DB db = new DB(getApplicationContext(), "",null, 1);
+                    String[] datos = new String[]{id,nombre,direccion,tel,email,dui};
+                    String respuesta = db.administrar_amigos(accion, datos);
+                    if(respuesta.equals("ok")){
+                        Toast.makeText(getApplicationContext(), "Amigo guardado con exito", Toast.LENGTH_LONG).show();
+                        abrirActividad();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Error al intentar guardar el amigo: "+ respuesta, Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Error: "+ e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
-
-    // Resto de tu código...
+    private void abrirActividad(){
+        Intent abrirActividad = new Intent(getApplicationContext(), lista_amigos.class);
+        startActivity(abrirActividad);
+    }
 }
