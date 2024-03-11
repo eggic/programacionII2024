@@ -5,62 +5,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/AppTheme">
+    android:padding="16dp"
+    tools:context=".LoginActivity">
+
+    <!-- Imagen circular con un icono en la parte superior -->
+    <ImageView
+        android:id="@+id/imgProfile"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/shrek_64f9ceef56099"/>
+
+
+    <!-- Campos de entrada de usuario y contraseña -->
     <EditText
-        android:id="@+id/txtnombre"
-        android:inputType="textPersonName"
-        android:hint="Nombre"
-        android:layout_marginTop="40dp"
+        android:id="@+id/editTextUsuario"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgProfile"
+        android:layout_marginTop="16dp"
+        android:hint="Usuario"
+        android:inputType="text"/>
+
     <EditText
-        android:id="@+id/txtdireccion"
-        android:hint="Direccion"
-        android:inputType="textMultiLine"
-        android:layout_below="@id/txtnombre"
-        android:layout_marginTop="40dp"
+        android:id="@+id/editTextContraseña"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtTelefono"
-        android:hint="Telefono"
-        android:inputType="phone"
-        android:layout_below="@id/txtdireccion"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtemail"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:layout_below="@id/txtTelefono"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <EditText
-        android:id="@+id/txtdui"
-        android:inputType="number"
-        android:hint="DUI"
-        android:layout_below="@id/txtemail"
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextUsuario"
+        android:layout_marginTop="8dp"
+        android:hint="Contraseña"
+        android:inputType="textPassword"/>
+
+    <!-- Botón para iniciar sesión -->
     <Button
-        android:id="@+id/btnGuardarAgendaAmigos"
-        android:layout_below="@id/txtdui"
-        android:layout_marginTop="40dp"
-        android:text="GUARDAR AMIGO"
+        android:id="@+id/btnIniciarSesion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabListarAmigos"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextContraseña"
+        android:layout_marginTop="16dp"
+        android:text="Iniciar Sesión"/>
+
+    <!-- Enlace para registrarse -->
+    <TextView
+        android:id="@+id/txtRegistro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:src="@android:drawable/ic_menu_revert" />
+        android:layout_below="@id/btnIniciarSesion"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:text="¿Eres nuevo? Regístrate aquí"
+        android:textColor="@android:color/darker_gray"/>
+
 </RelativeLayout>
