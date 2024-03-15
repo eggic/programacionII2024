@@ -1,8 +1,7 @@
 package com.ugb.calcul;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,10 +10,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Puedes realizar otras operaciones en el onCreate si es necesario
-        // ...
-
+        // Configurar la interfaz de usuario y la lógica de la actividad
     }
 }
-
-// Clase LoginActivity (asegúrate de tener un archivo separado para esta clase)

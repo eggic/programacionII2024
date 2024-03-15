@@ -1,4 +1,7 @@
-<!-- res/values/styles.xml -->
 <resources>
+    <!-- Otros estilos -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Personaliza tu tema aquí -->
+    </style>
 
 </resources>
